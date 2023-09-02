@@ -1,8 +1,8 @@
 {
-  "name": "action-typescript",
+  "name": "ghas-active-comitters-action",
   "version": "1.0.0",
-  "description": "GitHub Actions TypeScript template",
-  "main": "dist/index.js",
+  "description": "GHAS Unique Active Comitters",
+  "main": "src/index.ts",
   "scripts": {
     "build": "ncc build",
     "test": "jest",

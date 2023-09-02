@@ -1,6 +1,6 @@
-name: TypeScript Action
+name: GHAS Unique Active Comitters
 author: Austen Stone
-description: A TypeScript Action
+description: Understand your advanced security license usage
 branding:
   icon: "plus"
   color: "blue"
@@ -10,6 +10,16 @@ inputs:
     description: The GitHub token used to create an authenticated client
     default: ${{ github.token }}
     required: false
+  organization:
+    description: The organization to check for unique active committers
+    default: ${{ github.repository_owner }}}
+    required: false
+
+outputs:
+  unique-active-committers-count:
+    description: The number of unique active committers
+  unique-active-committers:
+    description: The JSON array of unique active committers
 
 runs:
   using: "node16"
