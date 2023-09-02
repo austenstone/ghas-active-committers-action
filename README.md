@@ -32,6 +32,8 @@ jobs:
           organization: 'octodemo'
 ```
 
+<img width="1084" alt="Screenshot 2023-09-01 at 11 17 59 PM" src="https://github.com/austenstone/ghas-active-committers-action/assets/22425467/142d0589-287b-4545-9c2b-32bf391195d9">
+
 ## ➡️ Inputs
 Various inputs are defined in [`action.yml`](action.yml):
 
