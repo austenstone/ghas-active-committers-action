@@ -64,7 +64,6 @@ const run = async (): Promise<void> => {
   uniqueActiveComitters = Object.fromEntries(Object.entries(uniqueActiveComitters).sort(([a, av], [b, bv]) => sortFunctions[input.sort]([a, av], [b, bv])));
   
   await core.summary
-    .addHeading('Unique Active Committers')
     .addTable([
       [{ data: 'User', header: true }, { data: 'Last Push Date', header: true }, { data: 'Repos', header: true }],
       ...Object.entries(uniqueActiveComitters)

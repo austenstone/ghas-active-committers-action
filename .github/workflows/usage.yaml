@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  run:
+  unique-active-committers:
     name: Unique Active Committers
     runs-on: ubuntu-latest
     steps:
