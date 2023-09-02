@@ -9676,7 +9676,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         .addHeading('Unique Active Committers')
         .addTable([
         [{ data: 'User', header: true }, { data: 'Last Push Date', header: true }, { data: 'Repos', header: true }],
-        ...Object.entries(uniqueActiveComitters).map(([user, { last_pushed_date, repos }]) => [user, last_pushed_date, repos.join(', ')])
+        ...Object.entries(uniqueActiveComitters).map(([user, { last_pushed_date, repos }]) => [user, last_pushed_date.replace(/-/g, '&#x2011;'), repos.join(', ')])
     ])
         .addLink('GitHub Advanced Security Billing', `https://github.com/organizations/${input.org}/settings/billing/advanced_security`)
         .write();
