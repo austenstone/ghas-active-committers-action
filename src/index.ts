@@ -3,6 +3,7 @@ import * as github from '@actions/github';
 import {
   GetResponseTypeFromEndpointMethod,
 } from "@octokit/types";
+import moment from 'moment';
 
 interface Input {
   token: string;
@@ -58,7 +59,14 @@ const run = async (): Promise<void> => {
     .addHeading('Unique Active Committers')
     .addTable([
       [{ data: 'User', header: true }, { data: 'Last Push Date', header: true }, { data: 'Repos', header: true }],
-      ...Object.entries(uniqueActiveComitters).map(([user, { last_pushed_date, repos }]) => [user, last_pushed_date.replace(/-/g, '&#x2011;'), repos.join(', ')])
+      ...Object.entries(uniqueActiveComitters)
+        .map(([user, { last_pushed_date, repos }]) =>
+          [
+            `[${user}](https://github.com/${user})`,
+            `${moment(last_pushed_date).fromNow()} (${last_pushed_date.replace(/-/g, '&#x2011;')})`,
+            repos.join(', ')
+          ]
+        )
     ])
     .addLink('GitHub Advanced Security Billing', `https://github.com/organizations/${input.org}/settings/billing/advanced_security`)
     .write();
