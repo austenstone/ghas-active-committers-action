@@ -8,12 +8,14 @@ import moment from 'moment';
 interface Input {
   token: string;
   org: string;
+  sort: 'last_pushed_date' | 'repo_count' | 'name' | 'none';
 }
 
 export function getInputs(): Input {
   const result = {} as Input;
   result.token = core.getInput('github-token');
   result.org = core.getInput('organization');
+  (result.sort as string) = core.getInput('sort');
   if (!result.org) throw new Error('Missing required input \'organization\'')
   return result;
 }
@@ -53,8 +55,14 @@ const run = async (): Promise<void> => {
     });
   });
 
-  uniqueActiveComitters = Object.fromEntries(Object.entries(uniqueActiveComitters).sort(([__, a], [_, b]) => a.repos.length - b.repos.length));
-
+  const sortFunctions = {
+    last_pushed_date: ([__, a], [_, b]) => new Date(a.last_pushed_date).getTime() - new Date(b.last_pushed_date).getTime(),
+    repo_count: ([__, a], [_, b]) => a.repos.length - b.repos.length,
+    name: ([a, __], [b, _]) => a.localeCompare(b),
+    none: () => 0,
+  };
+  uniqueActiveComitters = Object.fromEntries(Object.entries(uniqueActiveComitters).sort(([a, av], [b, bv]) => sortFunctions[input.sort]([a, av], [b, bv])));
+  
   await core.summary
     .addHeading('Unique Active Committers')
     .addTable([

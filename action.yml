@@ -14,6 +14,10 @@ inputs:
     description: The organization to check for unique active committers
     default: ${{ github.repository_owner }}}
     required: false
+  sort:
+    description: The sort order for the unique active committers
+    default: "repo_count"
+    required: false
 
 outputs:
   unique-active-committers-count:

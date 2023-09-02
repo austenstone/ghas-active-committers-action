@@ -15338,6 +15338,7 @@ function getInputs() {
     const result = {};
     result.token = core.getInput('github-token');
     result.org = core.getInput('organization');
+    result.sort = core.getInput('sort');
     if (!result.org)
         throw new Error('Missing required input \'organization\'');
     return result;
@@ -15367,7 +15368,13 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             }
         });
     });
-    uniqueActiveComitters = Object.fromEntries(Object.entries(uniqueActiveComitters).sort(([__, a], [_, b]) => a.repos.length - b.repos.length));
+    const sortFunctions = {
+        last_pushed_date: ([__, a], [_, b]) => new Date(a.last_pushed_date).getTime() - new Date(b.last_pushed_date).getTime(),
+        repo_count: ([__, a], [_, b]) => a.repos.length - b.repos.length,
+        name: ([a, __], [b, _]) => a.localeCompare(b),
+        none: () => 0,
+    };
+    uniqueActiveComitters = Object.fromEntries(Object.entries(uniqueActiveComitters).sort(([a, av], [b, bv]) => sortFunctions[input.sort]([a, av], [b, bv])));
     yield core.summary
         .addHeading('Unique Active Committers')
         .addTable([
