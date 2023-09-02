@@ -15374,9 +15374,9 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         [{ data: 'User', header: true }, { data: 'Last Push Date', header: true }, { data: 'Repos', header: true }],
         ...Object.entries(uniqueActiveComitters)
             .map(([user, { last_pushed_date, repos }]) => [
-            `[${user}](https://github.com/${user})`,
+            `<a href="https://github.com/${user}" target="_blank">${user}</a>`,
             `${(0, moment_1.default)(last_pushed_date).fromNow()} (${last_pushed_date.replace(/-/g, '&#x2011;')})`,
-            repos.join(', ')
+            repos.map(repo => `<a href="https://github.com/${repo}" target="_blank">${repo}</a>`).join(', ')
         ])
     ])
         .addLink('GitHub Advanced Security Billing', `https://github.com/organizations/${input.org}/settings/billing/advanced_security`)

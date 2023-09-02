@@ -62,9 +62,9 @@ const run = async (): Promise<void> => {
       ...Object.entries(uniqueActiveComitters)
         .map(([user, { last_pushed_date, repos }]) =>
           [
-            `[${user}](https://github.com/${user})`,
+            `<a href="https://github.com/${user}" target="_blank">${user}</a>`,
             `${moment(last_pushed_date).fromNow()} (${last_pushed_date.replace(/-/g, '&#x2011;')})`,
-            repos.join(', ')
+            repos.map(repo => `<a href="https://github.com/${repo}" target="_blank">${repo}</a>`).join(', ')
           ]
         )
     ])
