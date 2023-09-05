@@ -10,7 +10,7 @@ jobs:
     name: Unique Active Committers
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./
         with:
           github-token: ${{ secrets.TOKEN }}
